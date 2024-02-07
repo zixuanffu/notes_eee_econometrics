@@ -1,0 +1,164 @@
+Recall that our problem is to solve the following equation as an inverse problem
+\begin{equation*}
+    \cala\pa{F,\phi}=0 \Rightarrow K_F\phi=r_F
+\end{equation*}
+where $K_F$ is a linear operator and $r_F$ is a known function. We will solve this equation in a functional space. We will use the following notation
+\section{Linear equation in functional space}
+We will introduce the following terminology in the context of functional spaces:
+\begin{itemize}
+    \item Spaces
+    \item Linear operator
+    \item Solution of linear equations
+\end{itemize}
+\subsection{Spaces}
+Let's define a space (of functions) $\cale$ on $\R$ as a linear space if it satisifies the following properties:
+\begin{itemize}
+    \item $\forall f,g\in\cale$, $f+g\in\cale$
+    \item $\forall f\in\cale$, $\forall \alpha\in\R$, $\alpha f\in\cale$
+\end{itemize}
+Now let's define a norm on $\cale$ as a function $\norm{\cdot}:\cale\rightarrow\R$ such that
+\begin{itemize}
+    \item $\norm{f}\geq 0$ and $\norm{f}=0$ if and only if $f=0$
+    \item $\norm{\alpha f}=\abs{\alpha}\norm{f}$
+    \item $\norm{f+g}\leq \norm{f}+\norm{g}$
+\end{itemize}
+\begin{definition}[complete space]
+    A space $\cale$ is called a complete space if every Cauchy sequence in $\cale$ converges to a limit in $\cale$.
+\end{definition}
+\begin{definition}[Banach space]
+    A space $\cale$ is called a Banach space if it is a complete space with respect to the norm $\norm{\cdot}$.
+\end{definition}
+\begin{definition}[scalar product]
+    A scalar product on $\cale$ is a function $\angs{\cdot,\cdot}:\cale\times\cale\rightarrow\R$ such that
+    \begin{itemize}
+        \item $\angs{f,g}=\angs{g,f}$
+        \item $\angs{\alpha f,g}=\alpha\angs{f,g}$
+        \item $\angs{f+g,h}=\angs{f,h}+\angs{g,h}$
+        \item $\angs{f,f}\geq 0$ and $\angs{f,f}=0$ if and only if $f=0$
+    \end{itemize}
+\end{definition}
+If $\cale$ is equipped with a scalar product, then it is a Hilbert space.
+\begin{definition}[Hilbert space]
+    A space $\cale$ is called a Hilbert space if it is a complete space with respect to the norm $\norm{\cdot}$ induced by the scalar product $\angs{\cdot,\cdot}$.
+\end{definition}
+The relationship between the norm and the scalar product is given by the following equation:
+\begin{equation*}
+    \norm{f}=\sqrt{\angs{f,f}}
+\end{equation*}
+\begin{remark}
+    A Banach space B is a complete normed vector space. In terms of generality, it lies somewhere in between a metric space M (that has a metric, but no norm) and a Hilbert space H (that has an inner-product, and hence a norm, that in turn induces a metric). 
+\end{remark}
+\begin{example}
+    $L^p\pa{\Omega, \F, \mu}$ is a space of functions such that $\int\abs{f}^p<\infty$. It is a Banach space with the norm $\norm{f}_p=\pa{\int\abs{f}^p}^{1/p}$. Also if $\mu$ is a probability measure, then we have the inclusion $L^p\pa{\Omega, \F, \mu}\subset L^q\pa{\Omega, \F, \mu}$ for $p\geq q$.
+\end{example}
+\begin{definition}[Sobolev space]
+    Let $\Omega\subset\R^d$ be an open set. The Sobolev space $W^{k,p}\pa{\Omega}$ is the space of functions $f:\Omega\rightarrow\R$ such that
+    \begin{equation*}
+        \norm{f}_{W^{k,p}}=\pa{\sum_{\abs{\alpha}\leq k}\int_{\Omega}\abs{\partial^{\alpha}f}^p}^{1/p}<\infty
+    \end{equation*}
+    where $\alpha$ is a multi-index and $\partial^{\alpha}f$ is a partial derivative of order $\abs{\alpha}$.
+    
+\end{definition}
+
+\begin{definition}[subspace]
+    Let $\cale$ be a space and $\calh$ be a subspace of $\cale$. Then $\calh$ is a subspace of $\cale$ if it satisfies the following properties:
+    \begin{itemize}
+        \item $\forall f,g\in\calh$, $f+g\in\calh$
+        \item $\forall f\in\calh$, $\forall \alpha\in\R$, $\alpha f\in\calh$
+    \end{itemize}
+\end{definition}
+\begin{proposition}
+    $calh$ is closed if for every sequence $\pa{f_n}_{n\in\N}$ in $\calh$ such that $f_n\rightarrow f$ in $\cale$, we have $f\in\calh$.
+\end{proposition}
+\begin{remark}
+    In a finite dimensional space, every subspace is closed. However, in an infinite dimensional space, a subspace can be closed or not.
+\end{remark}
+\begin{definition}[Orthogonal subspace]
+    Let $\cale$ be a space and $\calh$ be a subspace of $\cale$. Then $\calh^{\perp}$ is the orthogonal subspace of $\calh$ if
+    \begin{equation*}
+        \calh^{\perp}=\setbra{f\in\cale:\angs{f,g}=0,\forall g\in\calh}
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The orthogonal subspace of a subspace is always closed.
+\end{remark}
+
+\subsection{Linear operator}
+\begin{definition}[linear operator]
+    Let $\cale$ and $\calh$ be two Hilbert spaces (equipped with scalar product). A linear operator $K:\cale\rightarrow\calh$ is a function such that
+    \begin{equation*}
+        K\pa{\alpha_1\phi_1+\alpha_2\phi_2}=\alpha_1K\phi_1+\alpha_2K\phi_2
+    \end{equation*}
+    for all $\phi_1,\phi_2\in\cale$ and $\alpha_1,\alpha_2\in\R$.
+\end{definition}
+\begin{example}
+    Let $X,Y,Z$ be three random variables defined on the $\pspace$. Let $X=Y\times Z$. We construct three $L^2$ spaces $L_X^2,L_Y^2,L_Z^2$. Define a linear operator $K$ such that $K\phi= \E\pa{\phi(y)\mid Z=z}$. Then $K$ is a linear operator from $L_Y^2$ to $L_Z^2$.
+\end{example}
+For a linear operator, we define the corresponding subspaces defined as domain, range and kernel as follows:
+\begin{definition}[domain, range and kernel]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then
+    \begin{itemize}
+        \item The domain of $K$ is defined as
+        \begin{equation*}
+            \cald\pa{K}=\setbra{\phi\in\cale:K\phi\in\calh}
+        \end{equation*}
+        \item The range of $K$ is defined as
+        \begin{equation*}
+            \calr\pa{K}=\setbra{K\phi:\phi\in\calm\pa{K}}
+        \end{equation*}
+        \item The kernel of $K$ is defined as
+        \begin{equation*}
+            \caln\pa{K}=\setbra{\phi\in\calm\pa{K}:K\phi=0}
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+
+For completeness, we define injection and surjection as follows:
+\begin{definition}[injection and surjection]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then
+    \begin{itemize}
+        \item $K$ is called an injection if for all $\phi_1,\phi_2\in\cale$, $K\phi_1=K\phi_2$ implies $\phi_1=\phi_2$.
+        \item $K$ is called a surjection if for all $h\in\calh$, there exists $\phi\in\cale$ such that $K\phi=h$.
+    \end{itemize}
+\end{definition}
+
+\paragraph{Boundness and continuity}
+\begin{definition}[boundness]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then $K$ is called bounded if there exists a constant $C>0$ such that
+    \begin{equation*}
+        \norm{K\phi}_{\calh}\leq C\norm{\phi}_{\cale}
+    \end{equation*}
+    for all $\phi\in\cale$.
+\end{definition}
+\begin{definition}[continuity]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then $K$ is called continuous if for all $\phi_n\rightarrow\phi$ in $\cale$, we have $K\phi_n\rightarrow K\phi$ in $\calh$.
+\end{definition}
+We will look at an example where $k$ is not continuous.
+\begin{example}
+    Let $\cale=\calc_{\bra{0,1}}^0$ be the space of continuous functions on $\bra{0,1}$. Define a linear operator $K:\cale\rightarrow\R$ such that $K\phi=\phi\pa{x_0}$.
+\end{example}
+
+\paragraph{Adjoint operator} Similar to the transpose of a matrix, we define the adjoint operator of a linear operator.
+\begin{definition}[adjoint operator]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then the adjoint operator $K^*:\calh\rightarrow\cale$ is defined as
+    \begin{equation*}
+        \angs{K\phi,h}_{\calh}=\angs{\phi,K^*h}_{\cale}
+    \end{equation*}
+    for all $\phi\in\cale$ and $h\in\calh$.
+\end{definition}
+\begin{remark}
+    We can show that matrix transpose is a special case of adjoint operator. For example, let $A$ be a matrix of dimension $m\times n$ and $x,y$ be vectors of dimension $n,m$ respectively. Then we have $\angs{Ax,y}=(Ax)^\top y= x^\top A^\top y = \angs{x,A^*y}$. 
+\end{remark}
+\begin{example}[integral operator as a self-adjoint operator]
+    Let $\cale = \calc^0\pa{\bra{0,1}}=\calh$. Define a linear operator $K:\cale\rightarrow\calh$ such that $K\phi\pa{x}=\int_0^1\phi\pa{y}k\pa{x,y}dy= h\pa{y}$ where $k\pa{x,y}$ is a given function. Then $\angs{K\phi,h}_{\calh}=\int_0^1\int_0^1\phi\pa{y}k\pa{x,y}dydx=\int_0^1\int_0^1k\pa{x,y}\phi\pa{y}dxdy=\angs{\phi,K^*h}_{\cale}$. Then we have $K^*h\pa{x}=\int_0^1k\pa{x,y}h\pa{y}dy$. We say $K$ is \textbf{self-adjoint} if $k\pa{x,y}=k\pa{y,x}$, that is $K^*=K$.
+\end{example}
+We look at another example in the context of probability.
+\begin{example}
+    
+\end{example}
+
+
+
+
+
+
