@@ -67,7 +67,11 @@ linear operator.
     We can show that matrix transpose is a special case of adjoint operator. For example, let $A$ be a matrix of dimension $m\times n$ and $x,y$ be vectors of dimension $n,m$ respectively. Then we have $\angs{Ax,y}=(Ax)^\top y= x^\top A^\top y = \angs{x,A^*y}$.
 \end{remark}
 \begin{example}[integral operator as a self-adjoint operator]
-    Let $\cale = \calc^0\pa{\bra{0,1}}=\calh$. Define a linear operator $K:\cale\rightarrow\calh$ such that $K\phi\pa{x}=\int_0^1\phi\pa{y}k\pa{x,y}dy= h\pa{y}$ where $k\pa{x,y}$ is a given function. Then $\angs{K\phi,h}_{\calh}=\int_0^1\int_0^1\phi\pa{y}k\pa{x,y}dydx=\int_0^1\int_0^1k\pa{x,y}\phi\pa{y}dxdy=\angs{\phi,K^*h}_{\cale}$. Then we have $K^*h\pa{x}=\int_0^1k\pa{x,y}h\pa{y}dy$. We say $K$ is \textbf{self-adjoint} if $k\pa{x,y}=k\pa{y,x}$, that is $K^*=K$.
+    Let $\cale = \calc^0\pa{\bra{0,1}}=\F$. Define a linear operator $K:\cale\rightarrow\F$ such that $K\phi\pa{x}=\int_0^1\phi\pa{x}k\pa{x,y}dx= \psi\pa{y}$ where $k\pa{x,y}$ is a given function. Then for any $\psi\in \F$, we have \begin{equation*}
+        \begin{split}
+            \angs{K\phi,\psi}_{\F}&=\int_0^1\int_0^1\phi\pa{x}k\pa{x,y}dx\psi(y)dy\\&=\int_0^1\int_0^1k\pa{x,y}\phi\pa{x}\psi(y)dxdy\\&=\angs{\phi,K^*\psi}_{\cale}
+        \end{split}
+    \end{equation*} Then we have $K^*\psi\pa{y}=\int_0^1k\pa{x,y}\psi\pa{y}dy$. We say $K$ is \textbf{self-adjoint} if $k\pa{x,y}=k\pa{y,x}$, that is $K^*=K$.
 \end{example}
 We look at another example in the context of probability.
 \begin{example}
