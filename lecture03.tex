@@ -1,0 +1,159 @@
+\fancyhead[R]{Lecture 3}
+\subsection{Linear operator}
+\begin{definition}[linear operator]
+    Let $\cale$ and $\calh$ be two Hilbert spaces (equipped with scalar product). A linear operator $K:\cale\rightarrow\calh$ is a function such that
+    \begin{equation*}
+        K\pa{\alpha_1\phi_1+\alpha_2\phi_2}=\alpha_1K\phi_1+\alpha_2K\phi_2
+    \end{equation*}
+    for all $\phi_1,\phi_2\in\cale$ and $\alpha_1,\alpha_2\in\R$.
+\end{definition}
+\begin{example}
+    Let $X,Y,Z$ be three random variables defined on the $\pspace$. Let $X=Y\times Z$. We construct three $L^2$ spaces $L_X^2,L_Y^2,L_Z^2$. Define a linear operator $K$ such that $K\phi= \E\pa{\phi(y)\mid Z=z}$. Then $K$ is a linear operator from $L_Y^2$ to $L_Z^2$.
+\end{example}
+For a linear operator, we define the corresponding subspaces defined as domain, range and kernel as follows:
+\begin{definition}[domain, range and kernel]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then
+    \begin{itemize}
+        \item The domain of $K$ is defined as
+              \begin{equation*}
+                  \cald\pa{K}=\setbra{\phi\in\cale:K\phi\in\calh}
+              \end{equation*}
+        \item The range of $K$ is defined as
+              \begin{equation*}
+                  \calr\pa{K}=\setbra{K\phi:\phi\in\calm\pa{K}}
+              \end{equation*}
+        \item The kernel of $K$ is defined as
+              \begin{equation*}
+                  \caln\pa{K}=\setbra{\phi\in\calm\pa{K}:K\phi=0}
+              \end{equation*}
+    \end{itemize}
+\end{definition}
+
+For completeness, we define injection and surjection as follows:
+\begin{definition}[injection and surjection]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then
+    \begin{itemize}
+        \item $K$ is called an injection if for all $\phi_1,\phi_2\in\cale$, $K\phi_1=K\phi_2$ implies $\phi_1=\phi_2$.
+        \item $K$ is called a surjection if for all $h\in\calh$, there exists $\phi\in\cale$ such that $K\phi=h$.
+    \end{itemize}
+\end{definition}
+
+\subsubsection{Boundness and continuity}
+\begin{definition}[boundness]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then $K$ is called bounded if there exists a constant $C>0$ such that
+    \begin{equation*}
+        \norm{K\phi}_{\calh}\leq C\norm{\phi}_{\cale}
+    \end{equation*}
+    for all $\phi\in\cale$.
+\end{definition}
+\begin{definition}[continuity]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then $K$ is called continuous if for all $\phi_n\rightarrow\phi$ in $\cale$, we have $K\phi_n\rightarrow K\phi$ in $\calh$.
+\end{definition}
+We will look at an example where $k$ is not continuous.
+\begin{example}
+    Let $\cale=\calc_{\bra{0,1}}^0$ be the space of continuous functions on $\bra{0,1}$. Define a linear operator $K:\cale\rightarrow\R$ such that $K\phi=\phi\pa{x_0}$.
+\end{example}
+
+\subsubsection{Adjoint operator} Similar to the transpose of a matrix, we define the adjoint operator of a
+linear operator.
+\begin{definition}[adjoint operator]
+    Let $\cale$ and $\calh$ be two Hilbert spaces and $K:\cale\rightarrow\calh$ be a linear operator. Then the adjoint operator $K^*:\calh\rightarrow\cale$ is defined as
+    \begin{equation*}
+        \angs{K\phi,h}_{\calh}=\angs{\phi,K^*h}_{\cale}
+    \end{equation*}
+    for all $\phi\in\cale$ and $h\in\calh$.
+\end{definition}
+\begin{remark}
+    We can show that matrix transpose is a special case of adjoint operator. For example, let $A$ be a matrix of dimension $m\times n$ and $x,y$ be vectors of dimension $n,m$ respectively. Then we have $\angs{Ax,y}=(Ax)^\top y= x^\top A^\top y = \angs{x,A^*y}$.
+\end{remark}
+\begin{example}[integral operator as a self-adjoint operator]
+    Let $\cale = \calc^0\pa{\bra{0,1}}=\calh$. Define a linear operator $K:\cale\rightarrow\calh$ such that $K\phi\pa{x}=\int_0^1\phi\pa{y}k\pa{x,y}dy= h\pa{y}$ where $k\pa{x,y}$ is a given function. Then $\angs{K\phi,h}_{\calh}=\int_0^1\int_0^1\phi\pa{y}k\pa{x,y}dydx=\int_0^1\int_0^1k\pa{x,y}\phi\pa{y}dxdy=\angs{\phi,K^*h}_{\cale}$. Then we have $K^*h\pa{x}=\int_0^1k\pa{x,y}h\pa{y}dy$. We say $K$ is \textbf{self-adjoint} if $k\pa{x,y}=k\pa{y,x}$, that is $K^*=K$.
+\end{example}
+We look at another example in the context of probability.
+\begin{example}
+    Let $X=Y \times Z$, where $X,Y,Z$ are random variables. We define a linear operator $K$ from $L_Y^2 \to L_Z^2$ such that $K\phi=\E\pa{\phi\pa{Y}\mid Z=z}$. Then the adjoint operator $K^*$ is given by $K^*h\pa{y}=\int h\pa{z}f\pa{z\mid y}dz$. Because by definition,
+    \begin{equation*}
+        \begin{split}
+            \angs{K\phi,\psi}&=\angs{\E\pa{\phi\pa{Y}|Z},\psi(Z)}\\
+            & = \E\bra{\E\pa{\phi\pa{Y}| Z}\psi(Z)}\\
+            & = \E\bra{\phi\pa{Y}\psi(Z)}\quad \text{by independence?}\\
+            & = \E\bra{\phi\pa{Y}\E\pa{\psi(Z)| Y}}\\
+            & = \angs{\phi,\E\pa{\psi(Z)| Y}}
+        \end{split}
+    \end{equation*}
+\end{example}
+
+\subsubsection{Compact operators and SVD}
+\begin{definition}[Singular value decompostion]
+    Let $\cale$ and $\F$ be two Hilbert spaces and $K:\cale\rightarrow\F$ be a linear compact operator. The adjoint operator $K^*$ is also compact. Then there exists a set of
+    \begin{enumerate}
+        \item A set of singular values $\lambda_j\geq 0$
+        \item Two orthonormal basis $\phi_j\in\cale$ and $\psi_j\in\F$ such that $\forall
+                  \phi\in\cale$, we have $\phi=\sum_j\lambda_j\angs{\phi,\phi_j}\phi_j+\phi_0$
+              for $\phi_0\in \caln\pa{K}$. Similarly for $\psi\in \F$.
+    \end{enumerate}
+    The following properties hold from SVD:
+    \begin{itemize}
+        \item $K^*K\phi_j=\lambda_j^2\phi_j$ and $KK^*\psi_j=\lambda_j^2\psi_j$
+        \item $K\phi_i=\lambda_j\psi_j$ and $K^*\psi_j=\lambda_j\phi_i$
+        \item Main implication: \begin{equation*}
+                  \begin{split}
+                      K\phi&=\sum_j\angs{\phi,\phi_j}k\phi_j+K\phi_0\\
+                      & = \sum_j\angs{\phi,\phi_j}\lambda_j\psi_j+0\\
+                      & = \sum_j\lambda_j\angs{\phi,\phi_j}\psi_j
+                  \end{split}
+              \end{equation*}
+    \end{itemize}
+    which leads to the following decomposition:
+\end{definition}
+
+\begin{definition}[Hilbert Schimidt and Nuclear operator]
+    A compact operator $K$ is called a Hilbert Schimidt operator if the sum of the squares of the singular values is finite, that is $\sum_j\lambda_j^2<\infty$.
+    It is a nuclear operator if the sum of the singular values is finite, that is $\sum_j\lambda_j<\infty$.
+\end{definition}
+A direct consequence is that \begin{equation*}
+    K^\beta\phi=\sum_j\lambda_j^\beta\angs{\phi,\phi_j}\psi_j
+\end{equation*}
+
+\begin{remark}
+    We have the following inclusion property of the operator \begin{equation*}
+        \text{Nuclear} \subset \text{Hilbert Schimidt} \subset \text{Compact} \subset \text{Continuous and Bounded} \subset \text{Linear}
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}
+    Let $K$ be a compact operator from the Hilbert space $\cale$ to $\F$. Denote any orthonormal basis of $\cale$ by $\setbra{\varepsilon_j}_{j\in J}$. Then the following properties hold:
+    \begin{itemize}
+        \item $\sum \lambda_j^2 = \sum_j \angs{K\varepsilon_j,K\varepsilon_j}=\sum_j \angs{\varepsilon_j,K^*K\varepsilon_j}$
+        \item $\sum \lambda_j = \sum_j \angs{K\varepsilon_j,\varepsilon_j}$
+    \end{itemize}
+\end{theorem}
+The theorem is obviously true if $\set{\varepsilon_j}$ is the basis from the SVD of $K$.
+
+% \subsection{Linear equations}
+% \begin{definition}[generalized inverse]
+%     $$ \min \norm{k\phi-r}^2 $$ has a solution if and only if $r\in\calr\pa{K}+\calr\pa{k}^\perp$.
+
+% \end{definition}
+
+% \section{}
+% Given the linear equation $$r=K\phi$$ for $K: \cale \to \calh$ in Hilbert spaces.
+% $K$ is compact and injective.
+% The regularized soltuion $$\phi_a= (K^*K+\alpha I)^{-1}K^*r=\sum \frac{\lambda}{}$$
+
+% 2 is qualification of Tikhonov regularization condition.
+
+% In \cale, L is a differential operator. It is defined on a dense subset on $\cale$ (not defined everywhere).
+% $K$ is an operator from $\cale$ to $\calh$. $L^{-a}$ is an integral operator. We say $K\equiv L^{-a}$ because
+
+% The degree of illposeness of $K$ w.r.t $L$ is $a$.
+% $L^b \phi $ defined 
+
+% Compare K to L and \phi to L. Then
+
+% \begin{example}[Spectral cut-off]
+%     \phi=\sum_j \frac{1}{\lambda_j} \angs{r,\psi_j}\phi_j
+%     \phi_\epsilon=\sum_{j/lambda_j>\epsilon} \frac{1}{\lambda_j} \angs{r,\psi_j}\phi_j
+
+%     \norm{\phi_\epsilon-\phi}^2=\sum_{j/lambda_j<\epsilon} 
+% \end{example}
