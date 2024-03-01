@@ -1,6 +1,6 @@
 \fancyhead[R]{Lecture 4}
 \begin{example}
-    For example, take $K\phi:=\int K(s,t)\phi(s)ds$, the HS class is given by \begin{equation*}
+    For example, take $K\varphi:=\int K(s,t)\varphi(s)ds$, the HS class is given by \begin{equation*}
         \begin{split}
             \sum_{j=1}\langle K\varepsilon_j,K\varepsilon_j \rangle&=\sum_j \int K\varepsilon_j(x)K\varepsilon_j(x)dx\\
             &= \sum_j \int \pa{\int K(y,x)\varepsilon_j(y)dy}^2dx\\
@@ -21,21 +21,111 @@
 \begin{example}
     Let us take \begin{equation*}
         \begin{split}
-            K\phi&=\E\bra{\phi(Y)|Z }\\&=\int \phi(y)f(y|z)dy \\
-            &= \int \phi(y)\frac{f(y,z)}{f(z)}\in L_Z^2\\
+            K\varphi&=\E\bra{\varphi(Y)|Z }\\&=\int \varphi(y)f(y|z)dy \\
+            &= \int \varphi(y)\frac{f(y,z)}{f(z)}\in L_Z^2\\
         \end{split}
     \end{equation*} $K$ is an operator from $L_Y^2 \to L_Z^2$ where $Y$ and $Z$ are random variables with joint density function $f(y,z)$.
     Then, by definition the adjoint operator $K^*$ is given by $K^*\psi(y)=\int \psi(z)f(z|y)dz$
     The Hilbert-Schmidt class is given by \begin{equation*}
         \begin{split}
-            \int \pa{\int \phi_i(y)\frac{f(y,z)}{f(z)}dy}^2dz&= \int \int \phi_i(y)\frac{f(y,z)}{f(z)}\phi_i(y)\frac{f(y,z)}{f(y)}dy dz\\&= \int \int \frac{f(y,z)}{f(z)}\frac{f(y,z)}{f(y)}dy dz
+            \int \pa{\int \varphi_i(y)\frac{f(y,z)}{f(z)}dy}^2dz&= \int \int \varphi_i(y)\frac{f(y,z)}{f(z)}\varphi_i(y)\frac{f(y,z)}{f(y)}dy dz\\&= \int \int \frac{f(y,z)}{f(z)}\frac{f(y,z)}{f(y)}dy dz
         \end{split}
     \end{equation*}
     On a side note, $$\frac{f(y,z)}{f(y)f(z)}=\sum_{j=1}^{\infty} \lambda_j \varphi_j(y)\psi_j(z)$$ {\color{red} (why?)} and $\sum_{j=1}\lambda_j^2$ is a measure of the dependence between $Y$ and $Z$.
 \end{example}
+Convergence in Hilbert-Schmidt class (?)
 
 % Recall how to the scalar product in function space:
 % \begin{equation*}
-%     \angs{\phi(s),\psi(s)}=\int \phi(s)\psi(s) d\mu(s)
+%     \angs{\varphi(s),\psi(s)}=\int \varphi(s)\psi(s) d\mu(s)
 % \end{equation*}
 % where $\mu(s)$ is some measure (?)
+
+\subsection{Linear Equations}
+For a linear equation $K\varphi=r$, we define two types of linear operators
+\begin{enumerate}
+    \item Type 1: $K$ is compact
+    \item Type 2: $K=I-T$ where $T$ is compact
+\end{enumerate}
+{\color{red} (Why two types?)}
+\subsubsection{Genralized Inverse}
+The problem \begin{equation*}
+    \min_{\varphi\in\cale}{\norm{K\varphi-r}^2}
+\end{equation*} has a solution $\varphi_0$ if and only if $r\in \calr\pa{K}+\calr K(r)^{\perp}$.
+Question: Is the column and null space (kernel) perpendicular to each other?
+In finite dimension, $\F=\calr\pa{K}+\calr K(r)^{\perp}$ while infinite dimension, $\F=\overline{\calr\pa{K}}+\calr K(r)^{\perp}$.
+If $\varphi_0$ exists, then $\varphi_0+\varphi$ for any $\varphi \in \caln\pa{K}$ is also a solution. We want to find the minimum norm generalized inverse.
+% We denote the solution to the problem as $\varphi^+$ where $K\varphi^+=r$. 
+We perform a SVD of the operator $K$ and get
+$\lambda_i,\set{\varphi_i},\set{\psi_i}$. Thus, $r$ can be expressed in terms
+of the orthonormal basis defined by $\set{\psi_i}$ as $$r=\sum_i
+    \lambda_i\angs{r,\psi_i}\psi_i.$$ Similarly for $\varphi=\sum_i
+    \lambda_i\angs{\varphi,\varphi_i}\varphi_i$. The linear equation becomes \begin{equation*}
+    K\varphi=\sum_i \lambda_i\angs{\varphi,\varphi_i}K\varphi_i=\sum_i \lambda_i\angs{\varphi,\varphi_i}\psi_i=\sum_i \lambda_i\angs{r,\psi_i}\psi_i=r
+\end{equation*}
+which implies that \begin{align*}
+     & \lambda_i\angs{\varphi,\varphi_i}=\angs{r,\psi_i}           \\
+     & \angs{\varphi,\varphi_i}= \frac{\angs{r,\psi_i}}{\lambda_i}
+\end{align*} for $\lambda_i\neq 0$.
+\begin{definition}[Generalized inverse]
+    If $\sum_i \frac{\angs{r,\psi_i}}{\lambda_i}^2 < \infty$, then the solution to the linear equation is given by \begin{equation*}
+        \varphi^+=\sum_i \frac{\angs{r,\psi_i}}{\lambda_i}\varphi_i
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    We can see that $\varphi^+$ is not continuous w.r.t. $r$ as $\lambda_i$ can go to zero.
+\end{remark}
+\subsubsection{Regularized solution}
+When $\lambda_i$ goes to zero, we have a problem. We can regularize the
+solution by add a regularization term.
+\begin{definition}[Tikhonov regularization]
+    The new problem is \begin{equation*}
+        \min  \norm{K\varphi-r}^2+\alpha^2\norm{\varphi}^2, \alpha>0
+    \end{equation*}
+    The regularized solution is given by \begin{equation*}
+        \varphi_\alpha=\sum_i \frac{\lambda_i}{\lambda_i^2+\alpha^2}\angs{r,\psi_i}\varphi_i
+    \end{equation*}
+\end{definition}
+\begin{proof}
+    We make use of gâteau derivative.
+\end{proof}
+\begin{remark}
+    This is similar to what we do in OLS regression where $\hat{\beta}= (X^\top X)^{-1}X^\top y$ yet $X^\top X$ is not invertible. We deal with the issue using \textbf{Ridge regression} by $\hat{\beta}=(X^\top X+\alpha I)^{-1}X^\top y$.
+\end{remark}
+We now prove the existence of the solution:
+\begin{enumerate}
+    \item $\alpha I+K^*K$ is a compact operator from $\cale$ to $\cale$ and it satisfies $(\alpha I+K^*K)\varphi_j=(\alpha+\lambda_j^2)\varphi_j$.
+    \item $K^*r=\sum_i \lambda_i\angs{r,\psi_i}\varphi_i$.
+\end{enumerate}
+As a result, \begin{equation}\label{eq:varphi_alpha}
+    \varphi_\alpha=(\alpha I+K^*K)^{-1}K^*r=\sum_i \frac{\lambda_i}{\lambda_i^2+\alpha^2}\angs{r,\psi_i}\varphi_i
+\end{equation}
+The behavior of $\varphi_\alpha$ as $\alpha\to 0$
+\begin{enumerate}
+    \item  If $K$ is injective and $r\in \calr(K)$ then
+          $\norm{\varphi_\alpha-\varphi_0}\to 0$. Define bias as
+          $\varphi_\alpha-\varphi$, we have \begin{equation*}
+              \begin{split}
+                  b_\alpha&=(\alpha I+K^*K)^{-1}K^*Kr-\varphi\\
+                  &=(\alpha I+K^*K)^{-1}(K^*K-\alpha I+K^*K)\varphi\\
+                  &=-\alpha(\alpha I+K^*K)^{-1}\varphi
+              \end{split}
+          \end{equation*}
+          Therefore as in the derivation of \eqref{eq:varphi_alpha}, $\norm{b_\alpha} = \alpha^2\sum \frac{1}{\lambda_i^2+\alpha^2}\angs{\varphi,\varphi_i}^2\to 0$
+    \item If $K$ is not injective, then $\varphi=\varphi_1+\varphi_0$ where $\varphi_1\in
+              \caln(K)$ then $\norm{\varphi_\alpha-\varphi_1}\to 0$, not the true $\varphi$.
+\end{enumerate}
+
+\subsubsection{Sauce condition}
+We introduce a sauce condition to control the rate of convergence of
+$\varphi_\alpha$. The condition that $\varphi\in\calr(K^*K)^{\frac{\beta}{2}}$
+is equivalent to there exists a $\delta\in (K^*K)^{\frac{\beta}{2}}\cale$ such
+that $\varphi=K^*K\delta$. If $\varphi$ satisfies the sauce condition, then by
+SVD of $K$ we have \begin{equation*}
+    \varphi=\sum_i \lambda_i^\beta\angs{\delta,\varphi_i}\varphi_i
+\end{equation*} {\color{red} (why?)}
+In general we have $\varphi=\sum_i \angs{\varphi,\varphi_i}\varphi_i$.
+Thus, \begin{align*}
+    \angs{\varphi,\varphi_i} & =\lambda_i^\beta\angs{\delta,\varphi_i} \\ \Rightarrow \sum_i\frac{\angs{\varphi,\varphi_i}^2}{\lambda_j^{2\beta}}&=\angs{\delta,\varphi_j}^2 < \infty
+\end{align*}
+Under this condition, we can show that $\norm{b_\alpha}^2 = O(\alpha^{\beta})$ for $\beta<2$ ($O (\alpha^{\beta\wedge 2})$).
