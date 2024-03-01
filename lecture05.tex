@@ -1,0 +1,66 @@
+\fancyhead[R]{Lecture 5}
+\begin{example}
+    On a Hilbert space $\cale$ we define a differential operator $L$. (For $a>0$, $L^{-a}$ is an integral operator.)
+    \begin{itemize}
+        \item For $K: \cale \to \F$, we have $K\sim L^{-a} \subseteq
+                  \norm{L^{-a}\phi}\subseteq \norm{K\varphi}\subseteq \tau \norm{L^{-a}\varphi}$.
+              The degree of illposeness of $K$ w.r.t. $L$ is $a$.
+        \item For $\varphi$, $L^b\varphi$ is defined for $b>0$. $\varphi$ is differentiable
+              w.r.t. $L$. $b$ is the order of smoothness of $\varphi$
+    \end{itemize}
+    {\color{red} What are we doing here?}
+\end{example}
+
+\subsubsection{Algorithm}
+First we introduce spectral cutoff. Given the equation $r=K\varphi$. By
+decomposition, $\varphi=\sum_j \frac{1}{\lambda_j}\angs{r,\psi_j}\varphi_j$ and
+$\varphi_\varepsilon=\sum_{j/\lambda_j\ge
+        \varepsilon}\frac{1}{\lambda_j}\angs{r,\psi_j}\varphi_j$. Therefore, \begin{equation*}
+    \varphi_\varepsilon-\varphi=\sum_{j/\lambda_j<\varepsilon}\frac{1}{\lambda_j}\angs{r,\psi_j}\varphi_j-\sum_j \frac{1}{\lambda_j}\angs{r,\psi_j}\varphi_j=\sum_{j/\lambda_j<\varepsilon}\angs{\varphi,\varphi_j}\varphi_j
+\end{equation*}
+If $\varphi,\psi \in \calr(K^*K)^{\frac{\beta}{2}}$, then $\norm{\varphi_\varepsilon-\varphi}^2=O(\alpha^\beta)$.
+\begin{proof}
+    \begin{equation*}
+        \begin{split}
+            \norm{\varphi_\varepsilon-\varphi}^2&=\sum_{j/\lambda_j<\varepsilon}\frac{\angs{r,\psi_j}^2}{\lambda_j^{2\beta}\lambda_j^{2\beta}}\\
+            &\le \varepsilon^{2\beta} \sum_j \frac{\angs{\varphi,\varphi_i}^2}{\lambda_i^{2\beta}}\\
+            &=O(\varepsilon^{2\beta})
+        \end{split}
+    \end{equation*}
+\end{proof}
+Now we introduce \textbf{Tikhmov Iterated Algorithm}.
+\begin{enumerate}
+    \item Choose $\alpha_0$.
+    \item $\varphi_{\alpha_1}=\argmin \norm{K\varphi-r}^2+\alpha_0\norm{\varphi-\varphi_{\alpha_0}}$. The solution is $\varphi_{\alpha_1}=(K^*K+\alpha_0 I)^{-1}K^*r+\alpha_0(K^*K+\alpha_0 I)^{-1}\varphi_{\alpha_0}$.
+    \item Replace $\varphi_{\alpha_0}$ by $\varphi_{\alpha_1}$ and $\alpha_0$ by
+          $\alpha_1$ in the next iteration.
+\end{enumerate}
+
+Next, we introduce \textbf{Landweber Regularization Algorithm}. {\color{red}
+Save for later...read the book! }\ If $\varphi \in
+    \calr(K^*K)^{\frac{\beta}{2}}$, the regularization converges in order of
+$\norm{\varphi_k-\varphi}^2=O(\frac{1}{k^\beta})$.
+
+\section{Statistical analysis of linear equation}
+In this section, we will first introduce general results then applications such
+as functional regression and instrumental variable approach.
+
+\paragraph{Set up} The model is $r=K\varphi$. We don't know $K,r$ so we need to estimate them.
+Then solve for $\varphi$.
+
+\subsection{Rate of convergence}
+\subsubsection{When K is given}
+We can write the estimate of $\hat{r}=K\varphi+u=r+u$.Then,
+$K^{-1}\hat{r}-K^{-1}r=\hat{\varphi}-\varphi$. The non continuity of $K^-1$
+causes problem in the convergence of $\hat{\varphi}$. Therefore, we need
+regularization. Recall the solution in the case of Tikhmov regularization, we
+have \begin{equation*}
+    \hat{\varphi_\alpha}=(\alpha I+K^*K)^{-1}K^*\hat{r}
+\end{equation*}
+
+Therefore, \begin{equation*}
+    \begin{split}
+        \hat{\varphi_\alpha}-\varphi&=(\alpha I+K^*K)^{-1}K^*\hat{r}-\varphi\\
+        &=\underbrace{(\alpha I+K^*K)^{-1}K^*(\hat{r}-r)}_{\text{variance term}}+\underbrace{(\alpha I+K^*K)^{-1}K^*r-\varphi}_{\text{bias term}}
+    \end{split}
+\end{equation*}

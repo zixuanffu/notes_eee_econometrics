@@ -128,4 +128,23 @@ In general we have $\varphi=\sum_i \angs{\varphi,\varphi_i}\varphi_i$.
 Thus, \begin{align*}
     \angs{\varphi,\varphi_i} & =\lambda_i^\beta\angs{\delta,\varphi_i} \\ \Rightarrow \sum_i\frac{\angs{\varphi,\varphi_i}^2}{\lambda_j^{2\beta}}&=\angs{\delta,\varphi_j}^2 < \infty
 \end{align*}
-Under this condition, we can show that $\norm{b_\alpha}^2 = O(\alpha^{\beta})$ for $\beta<2$ ($O (\alpha^{\beta\wedge 2})$).
+Under this condition, we can show that $\norm{b_\alpha}^2 = O(\alpha^{\beta})$ for $\beta<2$, that is $O (\alpha^{\beta\wedge 2})$.
+\begin{proof}
+    We have \begin{equation*}
+        \begin{split}
+            \norm{b_\alpha}^2&=\alpha^2\sum_i \frac{\lambda_i^{2\beta}\angs{\varphi,\varphi_i}^2}{\lambda_i^{2\beta}(\lambda_i^2+\alpha)^2} \quad \text{let } \lambda_i^2=\alpha\\
+            &\leq \sum_i \frac{\alpha^\beta\angs{\varphi,\varphi_i}^2}{\lambda_i^{2\beta}2} \quad \text{let } \lambda_i^2=\alpha\\
+            &=\frac{\alpha^\beta}{2}\sum \frac{\angs{\varphi,\varphi_i}^2}{\lambda_i^{2\beta}}\\
+            &=O(\alpha^{\beta})
+        \end{split}
+    \end{equation*}
+\end{proof}
+If $\beta=2$, then $\varphi\in\calr(K^*K) \Leftrightarrow \varphi=K^*K\delta\Leftrightarrow \varphi\in \cald(K^*K)^{-1}$.
+$(K^*K)^{-1}$ is a differentiation operator. $\varphi$ is differentiable w.r.t. $(K^*K)^{-1}$.
+\begin{example}
+    Let $K\varphi(t)=\int_s^t \varphi(s)ds$ and $K^*\psi(s)=\int_s^1 \psi(s)ds$. Then $K^*K\varphi(s)=\int_s^1\int_0^t\varphi(u)dudt=\delta(s)$ with $\delta(1)=0$. Also, $-\int_0^s \varphi(u)du=\delta'(s)$ with $\delta'(0)=0$. We get \begin{equation*}
+        \varphi=-\delta'',\ \in \calr(K^*K)
+    \end{equation*}
+\end{example}\
+{\color{red} What is the purpose of showing all these?}
+

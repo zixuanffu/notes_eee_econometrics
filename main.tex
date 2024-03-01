@@ -1,19 +1,19 @@
 \documentclass[12pt]{article}
-\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim}
+\usepackage{graphicx,psfrag,amsmath,amsfonts,verbatim}
 \usepackage[small,bf]{caption}
 \usepackage{amsthm}
 \usepackage{hyperref}
 \usepackage{bbm} % for the indicator function to look good
 \usepackage{color}
-\input newcommand.tex
-
+\usepackage{fancyhdr} % for the header
+\usepackage{geometry}
+\setlength{\parindent}{0pt} \input newcommand.tex% remove the automatic indentation
 
 % \bibliographystyle{alpha}
 
 \title{Empirical Economics and Econometrics }
-\author{Jean-Pierre Florence \thanks{Notes by FU Zixuan, last compiled on \today.}}
+\author{Jean-Pierre Florens \thanks{Notes by FU Zixuan, last compiled on \today.}}
 \date{2024 Spring}
-
 
 \begin{document}
 \maketitle
@@ -24,15 +24,16 @@
     \caption*{I have a question!}
 \end{figure*}
 
-
-
 \newpage
 \tableofcontents
 \newpage
-
+\pagestyle{fancy}
 \input{lecture02.tex}
+\input{lecture03.tex}
+\input{lecture04.tex}
+\input{lecture05.tex}
+\input{lecture06.tex}
 
 \newpage
-
 
 \end{document}
